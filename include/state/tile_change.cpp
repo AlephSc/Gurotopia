@@ -53,8 +53,6 @@ void tile_change(ENetEvent& event, state state)
                     /* @todo handle vertical punches */
                     int x1_nabor = (peer->facing_left) ? state.punch.x-1 : state.punch.x+1;
                     int x2_nabor = (peer->facing_left) ? state.punch.x-2 : state.punch.x+2;
-                    int x3_nabor = (peer->facing_left) ? state.punch.x-3 : state.punch.x+3;
-                    int x4_nabor = (peer->facing_left) ? state.punch.x-4 : state.punch.x+4;
                     
                     ::state x1_state = state;
                     x1_state.punch = {x1_nabor, x1_state.punch.y};
@@ -63,14 +61,6 @@ void tile_change(ENetEvent& event, state state)
                     ::state x2_state = state;
                     x2_state.punch = {x2_nabor, x2_state.punch.y};
                     tile_change(event, std::move(x2_state));
-
-                    ::state x3_state = state;
-                    x3_state.punch = {x3_nabor, x3_state.punch.y};
-                    tile_change(event, std::move(x3_state));
-
-                    ::state x4_state = state;
-                    x4_state.punch = {x4_nabor, x4_state.punch.y};
-                    tile_change(event, std::move(x4_state));
                 }
                 punch = false;
             }
