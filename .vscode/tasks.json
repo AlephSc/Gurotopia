@@ -1,0 +1,26 @@
+{
+    "tasks": [
+        {
+            "label": "Build Gurotopia",
+            "type": "cppbuild",
+            "command": "c:/msys64/usr/bin/bash.exe",
+            "args": [
+                "-c",
+                "export PATH=\"$PATH:/c/msys64/ucrt64/bin:/c/msys64/usr/bin\" && make -j$(nproc)"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Clean Gurotopia",
+            "type": "cppbuild",
+            "command": "c:/msys64/usr/bin/bash.exe",
+            "args": [
+                "-c",
+                "export PATH=\"$PATH:/c/msys64/usr/bin\" && make clean"
+            ]
+        }
+    ]
+}
