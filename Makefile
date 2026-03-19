@@ -1,14 +1,14 @@
 CXX := g++
 CXXFLAGS := -std=c++2b -g -Iinclude -MMD -MP
+LIBS := -L./include/enet/lib -lssl -lcrypto -lsqlite3
 
 BUILD_DIR := build
 
 ifeq ($(OS),Windows_NT)
-	CXXFLAGS += -I/ucrt64/include
-	LIBS := -L./include/enet/lib -L/ucrt64/lib -lssl -lcrypto -lsqlite3 -lenet_32 -lws2_32 -lwinmm
+	LIBS += -lenet_32 -lws2_32 -lwinmm
 	OUTPUT := main.exe
 else
-	LIBS := -L./include/enet/lib -lssl -lcrypto -lsqlite3 -lenet
+	LIBS += -lenet
 	OUTPUT := main.out
 endif
 
