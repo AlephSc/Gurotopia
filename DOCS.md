@@ -178,7 +178,7 @@ C:\msys64\usr\bin\bash.exe -c "export PATH=\"$PATH:/c/msys64/ucrt64/bin:/c/msys6
 1. **Check compiler order**: Run `where g++` to see which compiler is prioritized
 2. **Use absolute paths**: Always specify full paths in Makefile for critical tools
 3. **Avoid wildcards**: IntelliSense include paths don't support `*` patterns
-4. **Reload VS Code**: After config changes, use `Ctrl+Shift+P` → "Developer: Reload Window"
+4. **Reload VS Code**: After config changes, use `Ctrl+Shift+P` → "BAN_SHENG: Reload Window"
 
 ---
 
@@ -326,7 +326,7 @@ class peer {
     std::string game_version;
     std::string country;
     std::string prefix;     // Display name color
-    u_char role;            // PLAYER, MODERATOR, DEVELOPER
+    u_char role;            // PLAYER, DOU_ZUN, BAN_SHENG
     std::array<float, 10> clothing;
     u_char punch_effect;
     u_int skin_color;

@@ -40,8 +40,10 @@ struct Friend {
 
 enum role : u_char {
     PLAYER, 
-    MODERATOR, 
-    DEVELOPER
+    DOU_ZUN, 
+    BAN_SHENG,
+    DOU_SHENG,
+    DOU_DI
 };
 
 enum pstate : int
@@ -106,6 +108,8 @@ public:
     u_short fires_removed{};
     u_short gbc_pity{}; // @note GBC pity; for each 100 will receive super GBC
     
+    std::string currentNick = "";
+
     ~peer();
 };
 

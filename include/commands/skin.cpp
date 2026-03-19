@@ -12,7 +12,7 @@ void skin(ENetEvent& event, const std::string_view text)
     }
     std::string id{ text.substr(sizeof("skin ")-1) };
     ::peer *peer = static_cast<::peer*>(event.peer->data);
-
+    
     try
     {
         peer->skin_color = (u_int)stoul(id);

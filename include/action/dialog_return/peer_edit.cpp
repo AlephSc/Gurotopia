@@ -9,12 +9,17 @@
 void peer_edit(ENetEvent& event, const std::vector<std::string> &&pipes)
 {
     const std::string name = pipes[5zu];
-    const bool status = atoi(pipes[8zu].c_str());
 
+    if (name.empty() || pipes[8zu].empty() || pipes[11zu].empty() || pipes[13zu].empty() || pipes[15zu].empty()) {
+        packet::create(*event.peer, false, 0, { "OnConsoleMessage", "`4Error, Invalid." });
+        return;
+    }
+
+    const bool status = atoi(pipes[8zu].c_str());
     const u_char role = atoi(pipes[11zu].c_str());
     const short level = atoi(pipes[13zu].c_str());
     const signed gems = atoi(pipes[15zu].c_str());
-
+    
     if (status) // @note online
     {
         peers("", PEER_ALL, [&event, name, role, level, gems](ENetPeer& p) 
@@ -26,7 +31,7 @@ void peer_edit(ENetEvent& event, const std::vector<std::string> &&pipes)
                 on::CountryState(event);
 
                 _p->role = role;
-                _p->prefix = (_p->role == MODERATOR) ? "#@" : (_p->role == DEVELOPER) ? "8@" : _p->prefix;
+                _p->prefix = (_p->role == DOU_ZUN) ? "#@" : (_p->role == BAN_SHENG) ? "8@" : (_p->role == DOU_SHENG) ? "4@" : (_p->role == DOU_DI) ? "c@" : _p->prefix;
                 on::NameChanged(event);
 
                 _p->gems = gems;

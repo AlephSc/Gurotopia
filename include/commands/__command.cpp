@@ -8,21 +8,20 @@
 #include "sb.hpp"
 #include "who.hpp"
 #include "me.hpp"
+#include "nick.hpp"
+#include "help.hpp"
 #include "weather.hpp"
 #include "ghost.hpp"
 #include "ageworld.hpp"
 #include "__command.hpp"
 
 /* if you plan to use this outside of this file, please include in __command.hpp (^-^) - and just make it a void. */
-auto help_return = [](ENetEvent& event, const std::string_view text) 
-{
-    packet::action(*event.peer, "log", "msg|>> Commands: /find /warp {world} /edit {player} /punch {id} /skin {id} /sb {msg} /who /me {msg} /weather {id} /ghost /ageworld /wave /dance /love /sleep /facepalm /fp /smh /yes /no /omg /idk /shrug /furious /rolleyes /foldarms /stubborn /fold /dab /sassy /dance2 /march /grumpy /shy");
-};
+
 
 std::unordered_map<std::string_view, std::function<void(ENetEvent&, const std::string_view)>> cmd_pool
 {
-    {"help", help_return },
-    {"?", help_return },
+    {"help", &help},
+    {"?", &help},
     {"find", &find},
     {"warp", &warp},
     {"edit", &edit},
@@ -31,6 +30,7 @@ std::unordered_map<std::string_view, std::function<void(ENetEvent&, const std::s
     {"sb", &sb},
     {"who", &who},
     {"me", &me},
+    {"nick", &nick},
     {"weather", &weather},
     {"ghost", &ghost},
     {"ageworld", &ageworld},

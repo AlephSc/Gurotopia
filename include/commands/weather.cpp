@@ -80,9 +80,32 @@ void weather(ENetEvent& event, const std::string_view text)
         return;
     }
     std::string id{ text.substr(sizeof("weather ") - 1) };
-
-    packet::create(*event.peer, false, 0, {
-        "OnSetCurrentWeather",
-        atoi(id.c_str())
-    });
+    if (id.length() > 2) {
+        packet::create(*event.peer, false, 0, {
+            "OnConsoleMessage",
+            "`4Invalid input. ``id must be a `wunder 100``."
+        });
+        return;
+    }
+    if (stoi(id) < 0 || stoi(id) > 80) {
+        packet::create(*event.peer, false, 0, {
+            "OnConsoleMessage",
+            "`4Invalid input. ``id must be a `wunder 80 or 0``."
+        });
+        return;
+    }
+    try 
+    {
+        packet::create(*event.peer, false, 0, {
+            "OnSetCurrentWeather",
+            stoi(id)
+        });
+    }
+    catch (const std::invalid_argument &ex)
+    {
+        packet::create(*event.peer, false, 0, {
+            "OnConsoleMessage",
+            "`4Invalid input. ``id must be a `wnumber``."
+        });
+    }
 }

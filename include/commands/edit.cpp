@@ -1,9 +1,17 @@
 #include "pch.hpp"
 #include "action/wrench.hpp"
 #include "edit.hpp"
+#include "config.hpp"
 
 void edit(ENetEvent& event, const std::string_view text)
 {
+    
+    ::peer *perper = static_cast<::peer*>(event.peer->data);
+    if (perper->ltoken[0] != Configs::Owner)
+    {
+        packet::create(*event.peer, false, 0, { "OnConsoleMessage", "You don't have permission to use this command." });
+        return;
+    }
     if (text.length() <= sizeof("edit ") - 1) 
     {
         packet::create(*event.peer, false, 0, { "OnConsoleMessage", "Usage: /edit `w{player name}``" });

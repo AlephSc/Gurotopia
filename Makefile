@@ -36,6 +36,3 @@ $(BUILD_DIR):
 	@mkdir -p $@
 
 -include $(DEPS)
-
-clean:
-	rm -rf $(BUILD_DIR)

@@ -4,6 +4,7 @@
 #include "tools/create_dialog.hpp"
 #include "on/SetBux.hpp"
 #include "automate/holiday.hpp"
+#include "config.hpp"
 
 #include "enter_game.hpp"
 
@@ -18,12 +19,12 @@ void action::enter_game(ENetEvent& event, const std::string& header)
 
     if (peer->slots.empty()) // @note if peer has no items: assume they are a new player.
     {
-        peer->emplace({18, 1}); // @note Fist
-        peer->emplace({32, 1}); // @note Wrench
-        peer->emplace({9640, 1}); // @note My First World Lock
-    }
+        for (const auto& starterItem : Configs::StarterPack) { // @note you can configure this new get in config.hpp
+            peer->emplace({starterItem.id, starterItem.count});
+        };
+    };
 
-    peer->prefix = (peer->role == MODERATOR) ? "#@" : (peer->role == DEVELOPER) ? "8@" : peer->prefix;
+    peer->prefix = (peer->role == DOU_ZUN) ? "#@" : (peer->role == BAN_SHENG) ? "8@" : (peer->role == DOU_SHENG) ? "4@" : (peer->role == DOU_DI) ? "c@" : peer->prefix;
     packet::create(*event.peer, false, 0, {
         "OnConsoleMessage", 
         std::format("Welcome back, `{}{}````. No friends are online.", 

@@ -1,4 +1,5 @@
 #include "pch.hpp"
+#include "findconfig.hpp"
 
 #include "tools/string.hpp"
 #include "on/SetClothing.hpp"
@@ -7,11 +8,23 @@
 
 void find_item(ENetEvent& event, const std::vector<std::string> &&pipes)
 {
+
     for (std::size_t i = 0; i < pipes.size(); ++i)
     {
         if (pipes[i].contains("searchableItemListButton"))
         {
             std::string id = readch(pipes[i], '_')[1]; // e.g. searchableItemListButton_2_0_-1
+
+            ::peer *perper = static_cast<::peer*>(event.peer->data);
+
+            auto item = std::ranges::find(items, atoi(id.c_str()), &::item::id);
+
+            if (!itemConfig::isAllowed(perper->role, static_cast<type>(item->type))) 
+            {
+                packet::create(*event.peer, false, 0, { "OnConsoleMessage", "You dont have access to this items." });
+                return;
+            }
+
             modify_item_inventory(event, ::slot(atoi(id.c_str()), 200));
         } 
     }

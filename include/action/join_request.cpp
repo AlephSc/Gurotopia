@@ -272,8 +272,8 @@ void action::join_request(ENetEvent& event, const std::string& header, const std
             
             if (_p->user_id != peer->user_id)
             {
-                on::Spawn(*event.peer, _p->netid, _p->user_id, _p->pos, std::format("`{}{}", _p->prefix, _p->ltoken[0]), _p->country, _p->role, _p->role >= DEVELOPER, false);
-                on::Spawn(p, peer->netid, peer->user_id, peer->rest_pos, std::format("`{}{}", peer->prefix, peer->ltoken[0]), peer->country, peer->role, peer->role >= DEVELOPER, false);
+                on::Spawn(*event.peer, _p->netid, _p->user_id, _p->pos, std::format("`{}{}", _p->prefix, _p->ltoken[0]), _p->country, _p->role, _p->role >= BAN_SHENG, false);
+                on::Spawn(p, peer->netid, peer->user_id, peer->rest_pos, std::format("`{}{}", peer->prefix, peer->ltoken[0]), peer->country, peer->role, peer->role >= BAN_SHENG, false);
                 on::SetClothing(p);
                 packet::create(p, false, 0, {
                     "OnConsoleMessage",
@@ -290,7 +290,7 @@ void action::join_request(ENetEvent& event, const std::string& header, const std
                     1u
                 });
         });
-        on::Spawn(*event.peer, peer->netid, peer->user_id, peer->rest_pos, std::format("`{}{}", peer->prefix, peer->ltoken[0]), peer->country, peer->role, peer->role >= DEVELOPER, true);
+        on::Spawn(*event.peer, peer->netid, peer->user_id, peer->rest_pos, std::format("`{}{}", peer->prefix, peer->ltoken[0]), peer->country, peer->role, peer->role >= BAN_SHENG, true);
 
         if (peer->billboard.id != 0) on::BillboardChange(event); // @note don't waste memory if billboard is empty.
 
