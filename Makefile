@@ -5,7 +5,9 @@ LIBS := -L./include/enet/lib -lssl -lcrypto -lsqlite3
 BUILD_DIR := build
 
 ifeq ($(OS),Windows_NT)
-	LIBS += -lenet_32 -lws2_32 -lwinmm
+	# MSYS2 UCRT64 paths for sqlite3, openssl, enet
+	CXXFLAGS += -I/ucrt64/include
+	LIBS := -L./include/enet/lib -L/ucrt64/lib -lssl -lcrypto -lsqlite3 -lenet_32 -lws2_32 -lwinmm
 	OUTPUT := main.exe
 else
 	LIBS += -lenet

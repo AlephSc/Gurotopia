@@ -4408,3 +4408,25 @@ For local testing, add to hosts file:
 ---
 
 *Documentation generated based on source code analysis - 2026*
+
+---
+
+## World Generation System - Deep Dive
+
+### `generate_world()` Function
+
+**File:** `include/database/world.cpp`
+
+**Signature:**
+```cpp
+void generate_world(world &world, const std::string& name)
+```
+
+**Purpose:**
+Generates default terrain for a new world with caves, lava, bedrock, and a main door.
+
+**World Dimensions:**
+- Width: 100 tiles (X: 0-99)
+- Height: 60 tiles (Y: 0-59)
+- Total blocks: 6000 (100 × 60)
+"Test append" 
